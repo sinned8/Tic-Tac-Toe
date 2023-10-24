@@ -1,7 +1,6 @@
 
-
 body{
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode',Verdana, sans-serif;
     background-color: #11111b;
     margin: 0;
     color: white;
@@ -11,7 +10,6 @@ body{
     align-items: center;
     height: 100vh;
 }
-
 /* Intro card */
 #intro{
     display: flex;
@@ -41,17 +39,14 @@ body{
 #opponet-selector:hover{
     border: 4px solid rgb(248, 248, 248);
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-    
 }
 #play-person:hover{
     border: 4px solid rgb(248, 248, 248);
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-    
 }
 #player-ai:hover{
     border: 4px solid rgb(248, 248, 248);
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-    
 }
 /* Game container */
 #game-container{
@@ -108,5 +103,4 @@ body{
 #main-menu:hover{
     border: 4px solid rgb(248, 248, 248);
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-    
 }
