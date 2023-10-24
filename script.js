@@ -103,7 +103,7 @@ const gameBoardModule = (() => {
         isGameOver() {
             return gameIsOver;
         },
-        setGameOver(){
+        setGameOver(value){
             gameIsOver = value
         },
         // resetting gameboard
@@ -175,12 +175,12 @@ function AIMove(){
         if(winner){
             gameBoardModule.setGameOver(true)
             setTimeout(()=> {
-                gameBoardModule.winnerHeader.textContent = `${winner}`
+                winnerHeader.innerHTML = `Winner: ${winner}`
             }, 50);
         } else if (fullBoard){
             gameBoardModule.setGameOver(true)
             setTimeout(()=> {
-                gameBoardModule.winnerHeader.textContent = 'It\'s a tie!'
+                winnerHeader.innerHTML = 'It\'s a tie!'
             }, 50);
         }
     }
@@ -208,12 +208,12 @@ cells.forEach((cell)=> {
                 if(winner){
                     gameBoardModule.setGameOver(true)
                     setTimeout(()=> {
-                        gameBoardModule.winnerHeader.textContent = `${winner}`
+                        winnerHeader.innerHTML = `Winner: ${winner}`
                     }, 50);
                 } else if (fullBoard){
                     gameBoardModule.setGameOver(true)
                     setTimeout(()=> {
-                        gameBoardModule.winnerHeader.textContent = 'It\'s a tie!'
+                        winnerHeader.innerHTML = 'It\'s a tie!'
                     }, 50);
                 }
                 if(isPlayerAI){
@@ -227,7 +227,9 @@ cells.forEach((cell)=> {
 
 restartBttn.addEventListener('click',() => {
     resetGame()
+    winnerHeader.innerHTML = ''
 });
 mainMenu.addEventListener('click',() => {
     resetGame()
+    winnerHeader.innerHTML = ''
 });
