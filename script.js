@@ -131,4 +131,103 @@ const PlayerFactory = () => {
     };
 };
 
+// Event listeners for game mode selection
+let isPlayerAI = false
+playAiBttn.addEventListener('click', () => isPlayerAI = true)
+playPersonBttn.addEventListener('click', () => isPlayerAI = false)
 
+// Game board declarations
+const cells = document.querySelectorAll('.cell')
+const playerFactory = PlayerFactory()
+const restartBttn = document.getElementById('restart')
+
+// Function to reset game
+function resetGame() {
+    gameBoardModule.reset();
+    cells.forEach((cell) => {
+        cell.textContent = ''
+    });
+    playerFactory.resetPlayer()
+    gameBoardModule.setGameOver(false)
+}
+
+const winnerHeader = document.getElementById('winner-header')
+
+// AI moves after player moves function
+function AIMove(){
+    const emptyCells = Array.from(cells).filter(cell => !cell.textContent);
+
+    if (emptyCells.length === 0){
+        return
+    }
+    const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
+    const row =  parseInt(randomCell.getAttribute('data-row'))
+    const col =  parseInt(randomCell.getAttribute('data-col'))
+    const currentPlayer = playerFactory.getCurrentPlayer()
+
+    const moveSuccess = gameBoardModule.makeMove(row, col, currentPlayer);
+    if(moveSuccess){
+        randomCell.textContent = currentPlayer
+        playerFactory.switchPlayer();
+        const winner = gameBoardModule.checkWinner()
+        const fullBoard = gameBoardModule.isFull()
+
+        if(winner){
+            gameBoardModule.setGameOver(true)
+            setTimeout(()=> {
+                gameBoardModule.winnerHeader.textContent = `${winner}`
+            }, 50);
+        } else if (fullBoard){
+            gameBoardModule.setGameOver(true)
+            setTimeout(()=> {
+                gameBoardModule.winnerHeader.textContent = 'It\'s a tie!'
+            }, 50);
+        }
+    }
+}
+
+// Adding X or O on clicked cell
+cells.forEach((cell)=> {
+    cell.addEventListener('click', ()=>{
+        if(gameBoardModule.isGameOver()){
+            return
+        }
+        if(!cell.textContent){
+            const row = parseInt(cell.getAttribute('data-row'))
+            const col = parseInt(cell.getAttribute('data-col'))
+            const currentPlayer = playerFactory.getCurrentPlayer()
+            const moveSuccess = gameBoardModule.makeMove(row, col, currentPlayer)
+
+            if (moveSuccess){
+                cell.textContent = currentPlayer
+                playerFactory.switchPlayer()
+
+                const winner = gameBoardModule.checkWinner()
+                const fullBoard = gameBoardModule.isFull()
+
+                if(winner){
+                    gameBoardModule.setGameOver(true)
+                    setTimeout(()=> {
+                        gameBoardModule.winnerHeader.textContent = `${winner}`
+                    }, 50);
+                } else if (fullBoard){
+                    gameBoardModule.setGameOver(true)
+                    setTimeout(()=> {
+                        gameBoardModule.winnerHeader.textContent = 'It\'s a tie!'
+                    }, 50);
+                }
+                if(isPlayerAI){
+                    AIMove()
+                }
+            }
+        }
+    });
+});
+
+
+restartBttn.addEventListener('click',() => {
+    resetGame()
+});
+mainMenu.addEventListener('click',() => {
+    resetGame()
+});
