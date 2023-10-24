@@ -61,8 +61,57 @@ const gameBoardModule = (() => {
         return null;
     }
 
+    // Returns various functions to gameBoardModule
+    return {
+        // makes a move
+        makeMove(row, col ,player){
+            if (isEmpty(row, col)) {
+                board[row][col] = player
+                return true
+            }
+            return false
+        },
+        // checks if cell is full
+        isFull(){
+            for (let row = 0; row<3; row++){
+                for(let col = 0; col < 3; col++){
+                    if(isEmpty(row, col)){
+                        return false
+                    }
+                }
+            }
+            return true
+        },
+        // checking for winner
+        checkWinner(){
+            const horizWinner = checkHoriz()
+            const vertWinner = checkVert()
+            const digaonalWinner = checkDiagonal()
 
+            if (horizWinner){
+                return horizWinner
+            }
+            if(vertWinner){
+                return vertWinner
+            }
+            if(digaonalWinner){
+                return digaonalWinner
+            }
+            return null
+        },
+        // game over function
+        isGameOver() {
+            return gameIsOver;
+        },
+        setGameOver(){
+            gameIsOver = value
+        },
+        // resetting gameboard
+        reset(){
+            board = [[null, null, null],[null, null, null],[null, null, null]];
+        },
 
+    };
 })();
 
 
