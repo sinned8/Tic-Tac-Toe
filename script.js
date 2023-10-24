@@ -115,6 +115,20 @@ const gameBoardModule = (() => {
 })();
 
 
-
+// Making a player factory
+const PlayerFactory = () => {
+    let currentPlayer = 'X'
+    return {
+        getCurrentPlayer() {
+            return currentPlayer
+        },
+        switchPlayer() {
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X'
+        },
+        resetPlayer() {
+            currentPlayer = 'X'
+        },
+    };
+};
 
 
